@@ -6,6 +6,10 @@
     "email": "donald@modrobotics.com",
     "url": "http://www.modrobotics.com"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/modrobotics/node-cubelets.git"
+  },
   "dependencies": {
     "async": "0.2.8",
     "hashish": "0.0.4",
