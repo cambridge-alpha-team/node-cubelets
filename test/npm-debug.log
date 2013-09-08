@@ -1,0 +1,61 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/Cellar/node/0.8.21/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'node-arduino-socket' ]
+2 info using npm@1.2.11
+3 info using node@v0.8.21
+4 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/package.json
+5 warn package.json cubelets@0.0.1 No README.md file found!
+6 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/async/package.json
+7 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/duplexer/package.json
+8 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/hashish/package.json
+9 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/multimeter/package.json
+10 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/pad/package.json
+11 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/request/package.json
+12 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/serialport/package.json
+13 verbose read json /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/node_modules/temp/package.json
+14 verbose from cache /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/package.json
+15 verbose readDependencies using package.json deps
+16 verbose cache add [ 'node-arduino-socket', null ]
+17 verbose cache add name=undefined spec="node-arduino-socket" args=["node-arduino-socket",null]
+18 verbose parsed url { pathname: 'node-arduino-socket',
+18 verbose parsed url   path: 'node-arduino-socket',
+18 verbose parsed url   href: 'node-arduino-socket' }
+19 silly lockFile 7f88c12d-node-arduino-socket node-arduino-socket
+20 verbose lock node-arduino-socket /Users/Donald/.npm/7f88c12d-node-arduino-socket.lock
+21 silly lockFile 7f88c12d-node-arduino-socket node-arduino-socket
+22 silly lockFile 7f88c12d-node-arduino-socket node-arduino-socket
+23 verbose addNamed [ 'node-arduino-socket', '' ]
+24 verbose addNamed [ null, '' ]
+25 silly lockFile 53449dd1-node-arduino-socket node-arduino-socket@
+26 verbose lock node-arduino-socket@ /Users/Donald/.npm/53449dd1-node-arduino-socket.lock
+27 silly addNameRange { name: 'node-arduino-socket', range: '', hasData: false }
+28 verbose url raw node-arduino-socket
+29 verbose url resolving [ 'https://registry.npmjs.org/', './node-arduino-socket' ]
+30 verbose url resolved https://registry.npmjs.org/node-arduino-socket
+31 info trying registry request attempt 1 at 01:29:17
+32 http GET https://registry.npmjs.org/node-arduino-socket
+33 http 404 https://registry.npmjs.org/node-arduino-socket
+34 silly registry.get cb [ 404,
+34 silly registry.get   { server: 'CouchDB/1.3.1 (Erlang OTP/R15B03)',
+34 silly registry.get     date: 'Sun, 08 Sep 2013 07:29:17 GMT',
+34 silly registry.get     'content-type': 'application/json',
+34 silly registry.get     'content-length': '52',
+34 silly registry.get     'cache-control': 'must-revalidate' } ]
+35 silly lockFile 53449dd1-node-arduino-socket node-arduino-socket@
+36 silly lockFile 53449dd1-node-arduino-socket node-arduino-socket@
+37 error 404 'node-arduino-socket' is not in the npm registry.
+37 error 404 You should bug the author to publish it
+37 error 404
+37 error 404 Maybe try 'npm search arduino socket'
+37 error 404
+37 error 404 Note that you can also install from a
+37 error 404 tarball, folder, or http url, or git url.
+38 error System Darwin 11.4.2
+39 error command "/usr/local/Cellar/node/0.8.21/bin/node" "/usr/local/bin/npm" "install" "node-arduino-socket"
+40 error cwd /Users/Donald/Development/Projects/Modular Robotics/node-cubelets/test
+41 error node -v v0.8.21
+42 error npm -v 1.2.11
+43 error code E404
+44 verbose exit [ 1, true ]
