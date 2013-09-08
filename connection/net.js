@@ -1,4 +1,7 @@
+var util = require('util');
 var net = require('net');
+var Connection = require('../connection');
+var ResponseParser = require('../parser');
 
 var NetConnection = function(host, port) {
 

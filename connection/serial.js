@@ -3,11 +3,11 @@ var SerialPort = require('serialport').SerialPort;
 var Connection = require('../connection');
 var ResponseParser = require('../parser');
 
-var SerialConnection = function(device) {
-
+var SerialConnection = function(path) {
+	
 	Connection.call(this);
 
-	this.name = device;
+	this.name = path;
 	this.connected = false;
 
 	var connection = this;
@@ -29,7 +29,7 @@ var SerialConnection = function(device) {
 			connection.emit('extra', data);
 		});
 
-		serial = new SerialPort(device);
+		serial = new SerialPort(path);
 
 		serial.on('open', function() {
 			connection.connected = true;

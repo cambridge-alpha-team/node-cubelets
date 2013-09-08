@@ -1,5 +1,5 @@
-module.exports.SerialConnection = require('./connection/serial');
-module.exports.NetConnection = require('./connection/net');
+var util = require('util');
+var events = require('events');
 
 var Connection = function() {
 
