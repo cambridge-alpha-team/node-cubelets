@@ -23,7 +23,9 @@ var Construction = function() {
 			var map = construction.map;
 			var changed = false;
 			var find = function(an, id) {
-				return __(an).find(function(cubelet) { return cubelet.id == id });
+				return __(an).find(function(cubelet) {
+					return cubelet.id == id && cubelet.id != originID
+				});
 			}
 
 			// Update origin
@@ -51,8 +53,6 @@ var Construction = function() {
 
 			if (1 || changed)
 				construction.emit('change');
-
-			console.log('Updated map.');
 		}
 	};
 
@@ -89,7 +89,7 @@ var Construction = function() {
 	};
 
 	this.all = function() {
-		return []
+		return [this.origin]
 			.concat(this.near)
 			.concat(this.far);
 	};
