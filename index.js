@@ -29,3 +29,6 @@ module.exports.InfoService = require('./service/info');
 module.exports.FirmwareService = require('./service/firmware');
 module.exports.FlashProgram = require('./program');
 module.exports.FlashLoader = require('./loader');
+module.exports.BlinkLEDCommand = require('./command/blink-led');
+module.exports.SetBlockValueCommand = require('./command/set-block-value');
+module.exports.SetDefaultBlockValueCommand = require('./command/set-default-block-value');
