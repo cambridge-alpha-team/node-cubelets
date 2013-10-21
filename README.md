@@ -6,7 +6,7 @@ Communicate with Cubelets using node.js
 What are Cubelets?
 ==================
 
-Cubelets are magnetic blocks that can be snapped together to make an endless variety of robots. You can communicate with and program them in node.js.
+Cubelets are magnetic blocks that can be snapped together to make an endless variety of robots. You can communicate with and program them in node.js with a Bluetooth Cubelet.
 
 Connect
 =======
@@ -27,9 +27,7 @@ Then, open a connection:
 
 ```
 var cubelets = require('cubelets');
-var Connection = cubelets.Connection;
-
-var connection = new Connection('/dev/cu.Cubelet-MOD');
+var connection = new cubelets.SerialConnection('/dev/cu.Cubelet-GPW-AMP-SPP');
 
 connection.on('open', function() {
   console.log('Connection open')
@@ -62,4 +60,15 @@ The change event will fire when you add or remove direct neighbors to the robot 
 Command
 =======
 
-Now that you know 
+Once Cubelets are discovered, you can send commands to them. For example, to blink the LED on a Cubelet with ID ```1234```:
+
+```
+var LED = false; // Off
+setInterval(function() {
+  var command = new cubelets.BlinkLEDCommand(1234, LED);
+  connection.write(command.encode());
+  LED = !LED;
+});
+```
+
+
