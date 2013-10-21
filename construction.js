@@ -6,10 +6,16 @@ var Responses = require('./config.json')['responses'];
 var DiscoverMapNeighborsCommand = require('./command/discover-map-neighbors');
 var __ = require('underscore');
 
-var Construction = function() {
+var Construction = function(connection) {
 	events.EventEmitter.call(this);
 
-	this.connection = null;
+	this.setConnection = function(connection) {
+		removeConnectionListeners(this.connection);
+		this.connection = connection;
+		addConnectionListeners(this.connection);
+	};
+
+	this.setConnection(connection);
 	this.origin = null;
 	this.near = [];
 	this.far = [];
@@ -72,12 +78,6 @@ var Construction = function() {
 			connection.on('response', handleConnectionResponse);
 			connection.on('open', handleConnectionOpen);
 		}
-	};
-
-	this.setConnection = function(connection) {
-		removeConnectionListeners(this.connection);
-		this.connection = connection;
-		addConnectionListeners(this.connection);
 	};
 
 	this.discover = function() {

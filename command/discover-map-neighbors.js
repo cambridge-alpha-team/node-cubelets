@@ -8,7 +8,9 @@ var DiscoverMapNeighborsCommand = function() {
 util.inherits(DiscoverMapNeighborsCommand, Command);
 
 DiscoverMapNeighborsCommand.prototype.encode = function() {
-	return 'm';
+	return new Buffer([
+		'm'.charCodeAt(0)
+	]);
 };
 
 module.exports = DiscoverMapNeighborsCommand;

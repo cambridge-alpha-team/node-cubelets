@@ -96,11 +96,7 @@
     },
     "MAP_NEIGHBORS": {
       "code": "n",
-      "decoder": "map"
-    },
-    "MAP_FULL": {
-      "code": "j",
-      "decoder": "map"
+      "decoder": "discover-map-neighbors"
     },
     "BLOCK_VALUE_EVENT": {
       "code": "b",
