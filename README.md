@@ -68,7 +68,7 @@ setInterval(function() {
   var command = new cubelets.BlinkLEDCommand(1234, LED);
   connection.write(command.encode());
   LED = !LED;
-}, 5000);
+}, 500);
 ```
 
 
