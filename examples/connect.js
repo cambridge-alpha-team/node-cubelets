@@ -1,6 +1,6 @@
 var cubelets = require(__dirname + '/..');
 
-var connection = new cubelets.SerialConnection('/dev/cu.Cubelet-GPW-AMP-SPP');
+var connection = new cubelets.SerialConnection({ path: '/dev/cu.Cubelet-GPW-AMP-SPP' });
 
 connection.on('open', function() {
   console.log('Connection open')

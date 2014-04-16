@@ -37,7 +37,6 @@ module.exports.create = function(data, type) {
         console.log('Missing:', path);
         return new Response(data, type);
     }
-
     return new (require(path))(data, type);
 };
 

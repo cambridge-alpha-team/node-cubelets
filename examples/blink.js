@@ -1,6 +1,6 @@
 var cubelets = require(__dirname + '/..');
 
-var connection = new cubelets.SerialConnection('/dev/cu.Cubelet-GPW-AMP-SPP');
+var connection = new cubelets.SerialConnection({ path: '/dev/cu.Cubelet-GPW-AMP-SPP' });
 
 connection.on('open', function() {
   console.log('Connected.');
@@ -23,8 +23,8 @@ var keyboard = process.stdin;
 keyboard.setRawMode(true);
 keyboard.resume();
 
-var BlinkLEDCommand = require(__dirname + '/../command/blink-led');
-var SetBlockValueCommand = require(__dirname + '/../command/set-block-value');
+var BlinkLEDCommand = require(__dirname + '/../command/blinkLED');
+var SetBlockValueCommand = require(__dirname + '/../command/setBlockValue');
 
 var LED = false;
 var blockValue = 0;

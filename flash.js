@@ -9,7 +9,7 @@ var FlashProgram = require('./program');
 var FlashLoader = require('./loader');
 var Cubelet = require('./cubelet');
 
-var device = process.argv[2];
+var path = process.argv[2];
 var filename = process.argv[3];
 var id = process.argv[4];
 var target = process.argv[5];
@@ -19,7 +19,7 @@ if (!fs.existsSync(filename)) {
     return;
 }
 
-var serial = new SerialPort(device, { baudrate: 38400 });
+var serial = new SerialPort(path);
 var encoding = 'ascii';
 
 serial.on('open', function() {

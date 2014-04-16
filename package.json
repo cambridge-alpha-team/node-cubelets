@@ -26,6 +26,7 @@
     "pad": "0.0.4",
     "request": "2.26.0",
     "serialport": "git+https://github.com/programmarchy/node-serialport.git#drain",
+    "bluetooth-serial-port": "git://github.com/programmarchy/node-bluetooth-serial-port#modrobotics",
     "temp": "0.5.1",
     "underscore": "1.5.2"
   },

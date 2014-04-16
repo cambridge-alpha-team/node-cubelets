@@ -1,83 +1,129 @@
 var util = require('util');
+var events = require('events');
 var SerialPort = require('serialport').SerialPort;
-var Connection = require('../connection');
-var ResponseParser = require('../parser');
+var Parser = require('../parser');
+var Response = require('../response');
 
-var SerialConnection = function(path) {
-	
-	Connection.call(this);
-
-	this.name = path;
-	this.connected = false;
-
-	var connection = this;
-	var serial = undefined;
-	var parser = undefined;
-
-	this.connect = function(error, callback) {
-		if (connection.connected) {
-			return;
-		}
-
-		parser = new ResponseParser();
-
-		parser.on('response', function(response) {
-			connection.emit('response', response);
-		});
-
-		parser.on('extra', function(data) {
-			connection.emit('extra', data);
-		});
-
-		serial = new SerialPort(path);
-
-		serial.on('open', function() {
-			connection.connected = true;
-			if (callback) callback();
-			connection.emit('open');
-		});
-
-		serial.on('data', function(data) {
-			parser.parse(data);
-		});
-
-		serial.on('error', function(e) {
-			console.error(e);
-			if (error) error(e);
-			connection.emit('error', e);
-		});
-
-		serial.on('close', function() {
-			connection.connected = false;
-			connection.emit('close');
-			parser.removeAllListeners('response');
-			parser.removeAllListeners('extra');
-		});
-	};
-
-	this.disconnect = function() {
-		if (!connection.connected) {
-			return;
-		}
-		connection.connected = false;
-		serial.close();
-	}
-
-	this.postCommand = function(command) {
-		connection.write(command.encode());
-	};
-
-	this.write = function(data) {
-		if (!connection.connected) {
-			return;
-		}
-		serial.write(data);
-	};
-
-	this.stream = function() {
-		return serial;
-	};
+var Connection = function(config) {
+    events.EventEmitter.call(this);
+    var path = config['path'] || ((process.platform === 'win32') ?
+        'COM1' : '/dev/cu.Cubelet-RGB-AMP-SPP');
+    var connection = this;
+    var parser = null;
+    var serialPort = null;
+    var isOpen = false;
+    this.open = function(callback) {
+        if (isOpen) {
+            if (callback) {
+                callback(null);
+            }
+            return;
+        }
+        isOpen = false;
+        serialPort = new SerialPort(path, {}, false);
+        serialPort.open(function(error) {
+            if (error) {
+                connection.emit('error', error);
+                if (callback) {
+                    callback(error);
+                }
+                return;
+            }
+            serialPort.on('error', function(error) {
+                connection.emit('error', error);
+            });
+            parser = new Parser();
+            parser.on('response', function(response) {
+                connection.emit('response', response);
+            });
+            serialPort.on('data', function(data) {
+                parser.parse(data);
+            });
+            serialPort.on('end', function() {
+                connection.close();
+            });
+            serialPort.on('close', function(error) {
+                if (error) {
+                    connection.emit('error', error);
+                }
+                connection.close();
+            });
+            isOpen = true;
+            connection.emit('open');
+            if (callback) {
+                callback(null);
+            }
+        });
+    };
+    this.close = function(callback) {
+        isOpen = false;
+        if (!serialPort) {
+            connection.emit('close');
+            if (callback) {
+                callback(null);
+            }
+            return;
+        }
+        var closingSerialPort = serialPort;
+        serialPort = null;
+        closingSerialPort.drain(function(error) {
+            if (error) {
+                connection.emit('error', error);
+                if (callback) {
+                    callback(error);
+                }
+                return;
+            }
+            setTimeout(function() {
+                closingSerialPort.close(function(error) {
+                    closingSerialPort.removeAllListeners('data');
+                    closingSerialPort.removeAllListeners('end');
+                    closingSerialPort.removeAllListeners('close');
+                    closingSerialPort.removeAllListeners('error');
+                    closingSerialPort = null;
+                    if (parser) {
+                        parser.removeAllListeners('response');
+                        parser = null;
+                    }
+                    if (error) {
+                        connection.emit('error', error);
+                        if (callback) {
+                            callback(error);
+                        }
+                        return;
+                    }
+                    connection.emit('close');
+                    if (callback) {
+                        callback(null);
+                    }
+                });
+            }, 5000); // Hack to workaround serialport closing issues
+        });
+    };
+    this.isOpen = function() {
+        return isOpen;
+    };
+    this.isClosed = function() {
+        return !isOpen;
+    };
+    this.postCommand = function(command, callback) {
+        if (!isOpen) {
+            if (callback) {
+                callback(new Error('Connection not open.'));
+            }
+            return;
+        }
+        serialPort.write(command.encode(), callback);
+    };
+    this.write = function(data, callback) {
+        if (isOpen) {
+            serialPort.write(data, callback);
+        }
+    };
+    this.getStream = function() {
+        return serialPort;
+    };
 };
 
-util.inherits(SerialConnection, Connection);
-module.exports = SerialConnection;
+util.inherits(Connection, events.EventEmitter);
+module.exports = Connection;

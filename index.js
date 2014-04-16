@@ -1,26 +1,10 @@
-var util = require('util');
-var SerialPort = require('serialport');
-
-module.exports.list = function(callback) {
-	SerialPort.list(function(error, devices) {
-		if (error) {
-			callback(error, devices);
-			return;
-		}
-		var cubelets = [];
-		devices.forEach(function(device) {
-			if (device.comName && device.comName.indexOf('Cubelet') != -1) {
-				cubelets.push(device);
-			}
-		});
-		callback(null, cubelets);
-	});
-};
-
 module.exports.Cubelet = require('./cubelet');
-module.exports.Connection = require('./connection');
+module.exports.SerialScanner = require('./scanner/serial');
+module.exports.BluetoothScanner = require('./scanner/bluetooth');
+module.exports.MockScanner = require('./scanner/mock');
 module.exports.SerialConnection = require('./connection/serial');
-module.exports.NetConnection = require('./connection/net');
+module.exports.BluetoothConnection = require('./connection/bluetooth');
+module.exports.MockConnection = require('./connection/mock');
 module.exports.Construction = require('./construction');
 module.exports.Types = require('./config.json')['types'];
 module.exports.Responses = require('./config.json')['responses'];
@@ -29,6 +13,10 @@ module.exports.InfoService = require('./service/info');
 module.exports.FirmwareService = require('./service/firmware');
 module.exports.FlashProgram = require('./program');
 module.exports.FlashLoader = require('./loader');
-module.exports.BlinkLEDCommand = require('./command/blink-led');
-module.exports.SetBlockValueCommand = require('./command/set-block-value');
-module.exports.SetDefaultBlockValueCommand = require('./command/set-default-block-value');
+module.exports.BlinkLEDCommand = require('./command/blinkLED');
+module.exports.DiscoverMapNeighborsCommand = require('./command/discoverMapNeighbors');
+module.exports.RegisterBlockValueEventCommand = require('./command/registerBlockValueEvent');
+module.exports.UnregisterBlockValueEventCommand = require('./command/unregisterBlockValueEvent');
+module.exports.UnregisterAllBlockValueEventsCommand = require('./command/unregisterAllBlockValueEvents');
+module.exports.SetBlockValueCommand = require('./command/setBlockValue');
+module.exports.SetDefaultBlockValueCommand = require('./command/setDefaultBlockValue');

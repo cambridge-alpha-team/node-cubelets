@@ -2,7 +2,7 @@ var events = require('events');
 var util = require('util');
 var Response = require('./response');
 
-var ResponseParser = function(encoding) {
+var Parser = function(encoding) {
     events.EventEmitter.call(this);
 
     // Possible parser states
@@ -187,5 +187,5 @@ var ResponseParser = function(encoding) {
     }
 };
 
-util.inherits(ResponseParser, events.EventEmitter);
-module.exports = ResponseParser;
+util.inherits(Parser, events.EventEmitter);
+module.exports = Parser;

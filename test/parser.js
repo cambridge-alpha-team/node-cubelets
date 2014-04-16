@@ -1,4 +1,4 @@
-var MessageParser = require('../parser');
+var Parser = require('../parser');
 var __ = require('underscore');
 
 var parser;
@@ -16,10 +16,10 @@ function p(data) {
     return parser.parse(encode(data));
 }
 
-parser = new MessageParser();
+parser = new Parser();
 console.log('Test: <l0><n21>n|nnnnnnnnnnnnnn|nnnnnn!!|!<b|5|>bbbbb!<|X!!');
-parser.on('message', function(message) {
-    console.log('Message:', message);
+parser.on('response', function(message) {
+    console.log('Response:', message);
 });
 parser.on('extra', function(data) {
     console.log('Extra:', data);
@@ -32,10 +32,10 @@ p([5]);
 p(['>', 'b', 'b', 'b', 'b', 'b', '!', '<']);
 p(['X', '!', '!']);
 
-parser = new MessageParser();
+parser = new Parser();
 console.log('Test: 3c|6e153e 0059f000 54b50065 9c004ef6 00000000 00000000 00');
-parser.on('message', function(message) {
-    console.log('Message:', message);
+parser.on('response', function(message) {
+    console.log('Response:', message);
 });
 parser.on('extra', function(data) {
     console.log('Extra:', data);

@@ -3,13 +3,14 @@ var Command = require('../command');
 
 var DiscoverMapNeighborsCommand = function() {
 	Command.call(this);
+    this.code = 'm';
 };
 
 util.inherits(DiscoverMapNeighborsCommand, Command);
 
 DiscoverMapNeighborsCommand.prototype.encode = function() {
 	return new Buffer([
-		'm'.charCodeAt(0)
+		this.code.charCodeAt(0)
 	]);
 };
 

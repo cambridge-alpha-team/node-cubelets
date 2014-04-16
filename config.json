@@ -91,20 +91,20 @@
       "code": "D",
       "decoder": "debug"
     },
-    "ALIVE": {
+    "KEEP_ALIVE": {
       "code": "l"
     },
-    "MAP_NEIGHBORS": {
+    "DISCOVER_MAP_NEIGHBORS": {
       "code": "n",
-      "decoder": "discover-map-neighbors"
+      "decoder": "discoverMapNeighbors"
     },
     "BLOCK_VALUE_EVENT": {
       "code": "b",
-      "decoder": "block-value-event"
+      "decoder": "blockValueEvent"
     },
 		"FLASH_PROGRESS": {
 			"code": "U",
-			"decoder": "flash-progress"
+			"decoder": "flashProgress"
 		},
     "FLASH_COMPLETE": {
       "code": "X"
