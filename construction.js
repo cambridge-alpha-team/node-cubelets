@@ -144,7 +144,7 @@ var Construction = function(connection) {
     };
 
     this.all = function() {
-        return [origin].concat(near).concat(far);
+        return (origin ? [origin]:[]).concat(near).concat(far);
     };
 
     this.map = function() {
