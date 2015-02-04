@@ -12,6 +12,7 @@ var Scanner = function() {
         var serialPort = new BluetoothSerialPort();
         serialPort.on('found', function(address, name) {
             beginScan();
+            console.log('Found ' + name);
             if (name.indexOf('Cubelet') !== -1) {
                 serialPort.findSerialPortChannel(address, function(channel) {
                     var config = {
