@@ -118,6 +118,8 @@ var Construction = function(connection) {
 
             if (1 || changed)
                 construction.emit('change');
+        } else if (response.type.code === 'b') {
+          construction.emit('value', response);
         }
     }
 
